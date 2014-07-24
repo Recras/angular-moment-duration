@@ -14,6 +14,9 @@ angular.module('ui.moment-duration', [])
         link: function(scope, element, attrs, ngModel) {
             ngModel.$render = function () {
                 var duration = ngModel.$modelValue;
+                if (!duration) {
+                    return;
+                }
                 scope.days = Math.floor(duration.asDays());
 
                 scope.$watch('days', function() {
@@ -35,6 +38,9 @@ angular.module('ui.moment-duration', [])
         link: function(scope, element, attrs, ngModel) {
             ngModel.$render = function () {
                 var duration = ngModel.$modelValue;
+                if (!duration) {
+                    return;
+                }
 
                 scope.time = new Date();
                 scope.time.setHours(duration.hours());

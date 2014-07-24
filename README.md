@@ -19,7 +19,7 @@ You can use Bower to install this directive.
 
 Add the module as a dependency to your application module:
 
-    var myAppModule = angular.module('MyApp', ['ui.moment-duration'])
+    var myAppModule = angular.module('MyApp', ['ui.moment-duration', 'ui.timepicker'])
 
 The directives expects a moment.duration() object as ng-model
 
