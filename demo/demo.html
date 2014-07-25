@@ -5,19 +5,22 @@
     </head>
     <body>
         <div ng-controller="TimepickerCtrl">
-            <momentdurationdays ng-model="duration"></momentdurationdays>
-            days and
-            <momentdurationtime ng-model="duration" /></momentdurationtime>
-            <br>
-            {{ duration }}
+            <p>
+                <input momentduration="years" ng-model="duration"/>
+                <input momentduration="months" ng-model="duration"/>
+                <input momentduration="days" ng-model="duration"/>
+                <input momentduration="hours" ng-model="duration"/>
+                <input momentduration="minutes" ng-model="duration"/>
+                <input momentduration="seconds" ng-model="duration"/>
+            </p>
+            <p>
+                {{ duration }}
+            </p>
         </div>
 
-        <script type="text/javascript" src="../bower_components/jquery/dist/jquery.js"></script>
         <script type="text/javascript" src="../bower_components/moment/min/moment.min.js"></script>
         <script type="text/javascript" src="../bower_components/angular/angular.js"></script>
         <script type="text/javascript" src="../bower_components/angular-mocks/angular-mocks.js"></script>
-        <script type="text/javascript" src="../bower_components/jquery-timepicker-jt/jquery.timepicker.js"></script>
-        <script type="text/javascript" src="../bower_components/angular-jquery-timepicker/src/timepickerdirective.min.js"></script>
         <script type="text/javascript" src="../src/angular-moment-duration.js"></script>
         <script type="text/javascript" src="demo.js"></script>
     </body>
