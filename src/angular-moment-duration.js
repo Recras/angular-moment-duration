@@ -29,12 +29,36 @@ angular.module('ui.moment-duration', [])
                     value = duration.as(scope.type);
                 }
 
-                if (attrs.min === undefined) {
-                    attrs.$set('min', '0');
-                }
                 if (attrs.type === undefined) {
                     attrs.$set('type', 'number');
                 }
+
+                if (attrs.min === undefined) {
+                    attrs.$set('min', '0');
+                }
+
+                if (attrs.max === undefined) {
+                    var maxVal;
+                    switch (scope.type) {
+                        case 'seconds':
+                        case 'minutes':
+                            maxVal = 59;
+                            break;
+                        case 'hours':
+                            maxVal = 23;
+                            break;
+                        case 'days':
+                            maxVal = 29; // 30 days == 1 month in moment
+                            break;
+                        case 'months':
+                            maxVal = 11;
+                            break;
+                    }
+                    if (maxVal) {
+                        attrs.$set('max', maxVal);
+                    }
+                }
+
                 element.val(Math.floor(value));
             };
 
