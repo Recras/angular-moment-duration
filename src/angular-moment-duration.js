@@ -11,70 +11,37 @@ angular.module('ui.moment-duration', [])
         require: 'ngModel',
         priority: 1,
         scope: {
-            type: '@momentduration'
+            type: '@momentduration',
+            maxUnit: '@maxUnit'
         },
         link: function(scope, element, attrs, ngModel) {
             ngModel.$render = function () {
-                var duration = ngModel.$modelValue;
-                if (!duration) {
+                if (!ngModel.$modelValue) {
                     return;
                 }
-                attrs.$set('type', 'number');
-                attrs.$set('min', '0');
+                var duration = moment.duration(ngModel.$modelValue);
 
                 var value;
-                switch (scope.type) {
-                    case 'years':
-                        value = Math.floor(duration.years());
-                        break;
-                    case 'months':
-                        value = Math.floor(duration.months());
-                        attrs.$set('max', '11');
-                        break;
-                    case 'days':
-                        value = Math.floor(duration.days());
-                        attrs.$set('max', '29');
-                        break;
-                    case 'hours':
-                        value = Math.floor(duration.hours());
-                        attrs.$set('max', '23');
-                        break;
-                    case 'minutes':
-                        value = Math.floor(duration.minutes());
-                        attrs.$set('max', '59');
-                        break;
-                    case 'seconds':
-                        value = Math.floor(duration.seconds());
-                        attrs.$set('max', '59');
-                        break;
+                if (attrs.maxUnit === undefined) {
+                    value = duration.get(scope.type);
                 }
-                element.val(value);
+                else {
+                    value = duration.as(scope.type);
+                }
+                element.val(Math.floor(value));
             };
 
 
             ngModel.$parsers.unshift(function(viewValue){
-                var duration = ngModel.$modelValue;
-                var diff;
-                switch (scope.type) {
-                    case 'years':
-                        diff = moment.duration(viewValue - duration.years(), 'years');
-                        break;
-                    case 'months':
-                        diff = moment.duration(viewValue - duration.months(), 'months');
-                        break;
-                    case 'days':
-                        diff = moment.duration(viewValue - duration.days(), 'days');
-                        break;
-                    case 'hours':
-                        diff = moment.duration(viewValue - duration.hours(), 'hours');
-                        break;
-                    case 'minutes':
-                        diff = moment.duration(viewValue - duration.minutes(), 'minutes');
-                        break;
-                    case 'seconds':
-                        diff = moment.duration(viewValue - duration.seconds(), 'seconds');
-                        break;
+				var duration = ngModel.$modelValue;
+                var newValue;
+                if (scope.maxUnit === undefined) {
+                    newValue = duration.get(scope.type);
                 }
+                else {
+                    newValue = Math.floor(duration.as(scope.type));
+                }
+                var diff = moment.duration(viewValue - newValue, scope.type);
                 duration.add(diff);
                 return moment.duration(duration);
             });
