@@ -76,7 +76,7 @@ angular.module('ui.moment-duration', [])
                         break;
                 }
                 duration.add(diff);
-                return duration;
+                return moment.duration(duration);
             });
         }
     };
