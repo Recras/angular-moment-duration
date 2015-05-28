@@ -5,7 +5,7 @@
  */
 angular.module('ui.moment-duration', [])
 
-.directive('momentduration', [function() {
+.directive('momentduration', [function () {
     return {
         restrict: 'A',
         require: 'ngModel',
@@ -14,7 +14,7 @@ angular.module('ui.moment-duration', [])
             type: '@momentduration',
             maxUnit: '@maxUnit'
         },
-        link: function(scope, element, attrs, ngModel) {
+        link: function (scope, element, attrs, ngModel) {
             ngModel.$render = function () {
                 if (!ngModel.$modelValue) {
                     return;
@@ -28,12 +28,18 @@ angular.module('ui.moment-duration', [])
                 else {
                     value = duration.as(scope.type);
                 }
+
+                if (attrs.min === undefined) {
+                    attrs.$set('min', '0');
+                }
+                if (attrs.type === undefined) {
+                    attrs.$set('type', 'number');
+                }
                 element.val(Math.floor(value));
             };
 
-
-            ngModel.$parsers.unshift(function(viewValue){
-				var duration = ngModel.$modelValue;
+            ngModel.$parsers.unshift(function (viewValue) {
+                var duration = ngModel.$modelValue;
                 var newValue;
                 if (scope.maxUnit === undefined) {
                     newValue = duration.get(scope.type);
