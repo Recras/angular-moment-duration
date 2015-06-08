@@ -71,10 +71,7 @@ angular.module('ui.moment-duration', [])
                 else {
                     newValue = Math.floor(duration.as(scope.type));
                 }
-                var diff = moment.duration(viewValue - newValue, scope.type);
-                duration.add(diff);
-				// temporary workaround for a moment bug: https://github.com/moment/moment/issues/2166
-                return moment.duration(duration.asMilliseconds());
+                return duration.add(moment.duration(viewValue - newValue, scope.type));
             });
         }
     };
