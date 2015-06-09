@@ -1,22 +1,64 @@
 <!DOCTYPE html>
 <html ng-app="testApp">
     <head>
-        <link rel="stylesheet" type="text/css" media="screen" href="../bower_components/jquery-timepicker-jt/jquery.timepicker.css" />
+	<style type="text/css">
+		input{
+			max-width: 50px;
+		}
+	</style>
     </head>
     <body>
-        <div ng-controller="TimepickerCtrl">
+		<h1>Basic Example</h1>
+			<div data-ng-controller="TimepickerCtrl">
+			<p>
+				In its default state, this directive supports time units from seconds to years. Each unit of time is limited to its natural maximum
+				value (e.g. minutes must be on the interval [0-59]).
+			</p>
             <p>
-                <input momentduration="years" ng-model="duration"/>
-                <input momentduration="months" ng-model="duration"/>
-                <input momentduration="days" ng-model="duration"/>
-                <input momentduration="hours" ng-model="duration"/>
-                <input momentduration="minutes" ng-model="duration"/>
-                <input momentduration="seconds" ng-model="duration"/>
+                <label>Years:</label>&nbsp;<input data-momentduration="years" data-ng-model="duration"/>
+                <label>Months:</label>&nbsp;<input data-momentduration="months" data-ng-model="duration"/>
+                <label>Days:</label>&nbsp;<input data-momentduration="days" data-ng-model="duration"/>
+                <label>Hours:</label>&nbsp;<input data-momentduration="hours" data-ng-model="duration"/>
+                <label>Minutes:</label>&nbsp;<input data-momentduration="minutes" data-ng-model="duration"/>
+                <label>Seconds:</label>&nbsp;<input data-momentduration="seconds" data-ng-model="duration"/>
             </p>
+			<p>
+				{{duration.years()}} years, {{duration.months()}} months, {{duration.days()}} days, {{duration.hours()}} hours, {{duration.minutes()}} minutes, {{duration.seconds()}} seconds
+			</p>
             <p>
-                {{ duration }}
+                <label>ISO-8601 duration:</label>&nbsp;{{ duration }}
             </p>
-        </div>
+        </div>		
+		<hr>
+		<h1>Example Using MaxUnit</h1>
+		<div data-ng-controller="TimepickerCtrl">
+			<p>
+				The hours textbox has the max-unit attribute, which allows it to exceed the default max of 59. Without this attribute,
+				the hours textbox can't be larger than 59 because the control implicitly assumes you will also have a days textbox.
+				With this attribute in use, hours are unbounded and can grow to any value.
+			</p>
+			<p>
+				In this example, hours has a maximum value of 100, which means:
+				<ul>
+					<li>Seconds and minutes are capped to their default maximum values (59)</li>
+					<li>Hours are capped to a maximum of 100 hours, and are able to have a value on the interval [24,99] because the max-unit attribute is present.</li>
+					<li>The control in this form has a maximum supported value of 100 hours, 59 minutes, and 59 seconds.</li>
+				</ul>
+			</p>
+			<p>It generally makes no sense to apply the max-unit attribute to any input except the largest unit of time your page will support.</p>
+            <p>
+                <label>Hours:</label>&nbsp;<input data-momentduration="hours" data-max-unit max="100" data-ng-model="duration"/>
+                <label>Minutes:</label>&nbsp;<input data-momentduration="minutes" data-ng-model="duration"/>
+                <label>Seconds:</label>&nbsp;<input data-momentduration="seconds" data-ng-model="duration"/>
+            </p>
+			<p>
+				{{duration.asHours() | floor}} hours, {{duration.minutes()}} minutes, {{duration.seconds()}} seconds
+			</p>
+            <p>
+                <label>ISO-8601 duration:</label>&nbsp;{{ duration }}
+            </p>
+		</div>
+		<a href="https://github.com/Recras/angular-moment-duration">angular-moment-duration Project Home</a>
 
         <script type="text/javascript" src="../bower_components/moment/min/moment.min.js"></script>
         <script type="text/javascript" src="../bower_components/angular/angular.js"></script>
