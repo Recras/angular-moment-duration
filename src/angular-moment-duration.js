@@ -63,6 +63,9 @@ angular.module('ui.moment-duration', [])
 
                 ngModel.$parsers.unshift(function(viewValue) {
                     var duration = ngModel.$modelValue;
+                    if (!duration) {
+                        duration = moment.duration();
+                    }
                     var newValue;
                     if (scope.maxUnit === undefined) {
                         newValue = duration.get(scope.type);
