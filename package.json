@@ -1,0 +1,19 @@
+{
+  "name": "angular-moment-duration",
+  "version": "0.0.5",
+  "description": "An AngularJS directive for moment.js duration",
+  "main": "src/angular-moment-duration.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Recras/angular-moment-duration.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Recras/angular-moment-duration/issues"
+  },
+  "homepage": "https://github.com/Recras/angular-moment-duration#readme"
+}

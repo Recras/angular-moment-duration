@@ -10,9 +10,10 @@ An AngularJS directive to modify [moment.js duration objects](http://momentjs.co
 
 # Usage
 
-You can use Bower to install this directive.
+You can use Bower or npm  to install this directive.
 
     bower install angular-moment-duration
+    npm install angular-moment-duration
 
 Add the module as a dependency to your application module:
 
