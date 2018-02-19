@@ -16,18 +16,6 @@ angular.module('ui.moment-duration', [])
             },
             link: function(scope, element, attrs, ngModel) {
                 ngModel.$render = function() {
-                    if (!ngModel.$modelValue) {
-                        return;
-                    }
-                    var duration = moment.duration(ngModel.$modelValue);
-
-                    var value;
-                    if (attrs.maxUnit === undefined) {
-                        value = duration.get(scope.type);
-                    } else {
-                        value = duration.as(scope.type);
-                    }
-
                     if (attrs.type === undefined) {
                         attrs.$set('type', 'number');
                     }
@@ -56,6 +44,18 @@ angular.module('ui.moment-duration', [])
                         if (maxVal) {
                             attrs.$set('max', maxVal);
                         }
+                    }
+
+                    if (!ngModel.$modelValue) {
+                        return;
+                    }
+                    var duration = moment.duration(ngModel.$modelValue);
+
+                    var value;
+                    if (attrs.maxUnit === undefined) {
+                        value = duration.get(scope.type);
+                    } else {
+                        value = duration.as(scope.type);
                     }
 
                     element.val(Math.floor(value));
