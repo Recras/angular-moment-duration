@@ -63,9 +63,9 @@ angular.module('ui.moment-duration', [])
 
                 ngModel.$viewChangeListeners.push(function() {
                     var valid = true;
-                    if (attrs.min && ngModel.$viewValue < attrs.min) {
+                    if (attrs.min && parseInt(ngModel.$viewValue, 10) < parseInt(attrs.min, 10)) {
                         valid = false;
-                    } else if (attrs.max && ngModel.$viewValue > attrs.max) {
+                    } else if (attrs.max && parseInt(ngModel.$viewValue, 10) > parseInt(attrs.max, 10)) {
                         valid = false;
                     }
                     ngModel.$setValidity('min', valid);
