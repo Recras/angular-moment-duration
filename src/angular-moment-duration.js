@@ -61,6 +61,16 @@ angular.module('ui.moment-duration', [])
                     element.val(Math.floor(value));
                 };
 
+                ngModel.$viewChangeListeners.push(function() {
+                    var valid = true;
+                    if (attrs.min && ngModel.$viewValue < attrs.min) {
+                        valid = false;
+                    } else if (attrs.max && ngModel.$viewValue > attrs.max) {
+                        valid = false;
+                    }
+                    ngModel.$setValidity('min', valid);
+                });
+
                 ngModel.$parsers.unshift(function(viewValue) {
                     var duration = moment.duration(ngModel.$modelValue);
                     var newValue;
