@@ -1,6 +1,6 @@
 {
   "name": "angular-moment-duration",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "An AngularJS directive for moment.js duration",
   "main": "src/angular-moment-duration.js",
   "scripts": {

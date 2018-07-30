@@ -61,18 +61,25 @@ angular.module('ui.moment-duration', [])
                     element.val(Math.floor(value));
                 };
 
-                ngModel.$viewChangeListeners.push(function() {
-                    var valid = true;
-                    if (attrs.min && parseInt(ngModel.$viewValue, 10) < parseInt(attrs.min, 10)) {
-                        valid = false;
-                    } else if (attrs.max && parseInt(ngModel.$viewValue, 10) > parseInt(attrs.max, 10)) {
-                        valid = false;
+                var isValid = function(value) {
+                    if (attrs.min && parseInt(value, 10) < parseInt(attrs.min, 10)) {
+                        return false;
                     }
-                    ngModel.$setValidity('min', valid);
+                    if (attrs.max && parseInt(value, 10) > parseInt(attrs.max, 10)) {
+                        return false;
+                    }
+                    return true;
+                };
+
+                ngModel.$viewChangeListeners.push(function() {
+                    ngModel.$setValidity('min', isValid(ngModel.$viewValue));
                 });
 
                 ngModel.$parsers.unshift(function(viewValue) {
                     var duration = moment.duration(ngModel.$modelValue);
+                    if (!isValid(viewValue)) {
+                        return duration;
+                    }
                     var newValue;
                     if (scope.maxUnit === undefined) {
                         newValue = duration.get(scope.type);
